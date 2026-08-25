@@ -138,7 +138,7 @@ create or replace function verify_trip_password(p_slug text, p_password text)
 returns boolean
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_trip trips%rowtype;
@@ -177,7 +177,7 @@ create or replace function create_trip(
 returns uuid
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_id uuid;
