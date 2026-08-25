@@ -10,9 +10,9 @@ const WEATHER_ICONS = {
 
 const FORECAST_LIMIT_DAYS = 16;
 
-export async function geocodeAddress(address) {
+export async function geocodeAddress(cityState) {
   const res = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(address)}&count=1`
+    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityState)}&count=1`
   );
   const data = await res.json();
   if (!data.results || data.results.length === 0) return null;

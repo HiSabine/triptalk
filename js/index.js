@@ -21,18 +21,20 @@ form.addEventListener('submit', async (event) => {
   const formData = new FormData(form);
   const name = formData.get('name').trim();
   const address = formData.get('address').trim();
+  const cityState = formData.get('cityState').trim();
   const suffix = Math.random().toString(36).slice(2, 6);
   const slug = `${slugify(name)}-${suffix}`;
 
   try {
     status.textContent = 'Looking up location for weather...';
-    const coords = await geocodeAddress(address);
+    const coords = await geocodeAddress(cityState);
 
     status.textContent = 'Creating trip...';
     await createTrip({
       slug,
       name,
       address,
+      cityState,
       lat: coords?.lat ?? null,
       lng: coords?.lng ?? null,
       startDate: formData.get('startDate'),

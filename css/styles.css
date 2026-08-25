@@ -41,6 +41,11 @@ form label {
   flex: 1;
 }
 
+.hint {
+  font-weight: 400;
+  color: #777;
+}
+
 form .row {
   display: flex;
   gap: 1rem;

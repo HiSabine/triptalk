@@ -28,6 +28,7 @@ export async function createTrip(fields) {
     p_slug: fields.slug,
     p_name: fields.name,
     p_address: fields.address,
+    p_city_state: fields.cityState,
     p_lat: fields.lat,
     p_lng: fields.lng,
     p_start_date: fields.startDate,
