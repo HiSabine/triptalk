@@ -9,7 +9,37 @@
 <body>
   <main>
     <h1>TripTalk</h1>
-    <p>Group trip planning — coming soon.</p>
+    <p class="tagline">Start planning a group trip.</p>
+
+    <form id="create-trip-form">
+      <label>
+        Trip name
+        <input type="text" name="name" placeholder="Sizzles On Tour" required>
+      </label>
+      <label>
+        House address / city
+        <input type="text" name="address" placeholder="Loomis, CA" required>
+      </label>
+      <div class="row">
+        <label>
+          Start date
+          <input type="date" name="startDate" required>
+        </label>
+        <label>
+          End date
+          <input type="date" name="endDate" required>
+        </label>
+      </div>
+      <label>
+        Group password
+        <input type="password" name="password" required minlength="4">
+      </label>
+      <button type="submit">Create trip</button>
+    </form>
+
+    <p id="status" class="status"></p>
   </main>
+
+  <script type="module" src="js/index.js"></script>
 </body>
 </html>
