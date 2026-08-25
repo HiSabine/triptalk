@@ -127,6 +127,7 @@ create index on meal_signups (trip_id, day_date, meal_type);
 create index on day_plan_sections (trip_id, position);
 
 grant select on trips to authenticated;
+grant select on trip_access to authenticated;
 grant select, insert, update on day_plan_sections to authenticated;
 grant select, insert, delete on meal_signups to authenticated;
 
