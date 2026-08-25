@@ -1,4 +1,5 @@
 import { createTrip } from './auth.js';
+import { geocodeAddress } from './weather.js';
 
 function slugify(text) {
   return text
@@ -19,16 +20,21 @@ form.addEventListener('submit', async (event) => {
 
   const formData = new FormData(form);
   const name = formData.get('name').trim();
+  const address = formData.get('address').trim();
   const suffix = Math.random().toString(36).slice(2, 6);
   const slug = `${slugify(name)}-${suffix}`;
 
   try {
+    status.textContent = 'Looking up location for weather...';
+    const coords = await geocodeAddress(address);
+
+    status.textContent = 'Creating trip...';
     await createTrip({
       slug,
       name,
-      address: formData.get('address').trim(),
-      lat: null,
-      lng: null,
+      address,
+      lat: coords?.lat ?? null,
+      lng: coords?.lng ?? null,
       startDate: formData.get('startDate'),
       endDate: formData.get('endDate'),
       password: formData.get('password'),

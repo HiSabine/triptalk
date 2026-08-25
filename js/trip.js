@@ -1,5 +1,7 @@
 import { unlockTrip } from './auth.js';
 import { supabase } from './supabaseClient.js';
+import { fetchForecast } from './weather.js';
+import { escapeHtml } from './utils.js';
 
 const params = new URLSearchParams(location.search);
 const slug = params.get('slug');
@@ -36,7 +38,7 @@ form.addEventListener('submit', async (event) => {
 async function loadTrip() {
   const { data, error } = await supabase
     .from('trips')
-    .select('name, address, start_date, end_date')
+    .select('name, address, lat, lng, start_date, end_date')
     .eq('slug', slug)
     .single();
 
@@ -46,8 +48,39 @@ async function loadTrip() {
   }
 
   content.innerHTML = `
-    <h1>${data.name}</h1>
-    <p>${data.address}</p>
-    <p>${data.start_date} – ${data.end_date}</p>
+    <h1>${escapeHtml(data.name)}</h1>
+    <p>${escapeHtml(data.address)}</p>
+    <p>${escapeHtml(data.start_date)} – ${escapeHtml(data.end_date)}</p>
+    <div id="weather">Loading weather...</div>
   `;
+
+  loadWeather(data);
+}
+
+async function loadWeather(trip) {
+  const weatherEl = document.getElementById('weather');
+
+  if (trip.lat == null || trip.lng == null) {
+    weatherEl.textContent = "Couldn't determine this location for weather.";
+    return;
+  }
+
+  const forecast = await fetchForecast(trip.lat, trip.lng, trip.start_date, trip.end_date);
+
+  if (!forecast.available) {
+    weatherEl.textContent = `Forecast not available yet — check back closer to the trip (within ${16} days).`;
+    return;
+  }
+
+  weatherEl.innerHTML = forecast.days
+    .map(
+      (day) => `
+        <div class="weather-day">
+          <span class="weather-date">${escapeHtml(day.date)}</span>
+          <span class="weather-icon">${day.icon}</span>
+          <span class="weather-temps">${day.high}° / ${day.low}°</span>
+        </div>
+      `
+    )
+    .join('');
 }
