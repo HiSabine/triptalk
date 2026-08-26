@@ -48,9 +48,16 @@ async function loadTrip() {
   }
 
   content.innerHTML = `
+    <p class="kicker">TripTalk</p>
     <h1>${escapeHtml(data.name)}</h1>
-    <p>${escapeHtml(data.address)}</p>
-    <p>${formatDate(data.start_date)} – ${formatDate(data.end_date)}</p>
+    <p class="trip-meta">
+      ${escapeHtml(data.address)}<br>
+      ${formatDate(data.start_date)} – ${formatDate(data.end_date)}
+    </p>
+
+    <hr class="divider">
+
+    <p class="section-label">Weather</p>
     <div id="weather">Loading weather...</div>
   `;
 
