@@ -185,3 +185,106 @@ button:disabled {
 .weather-temps {
   font-variant-numeric: tabular-nums;
 }
+
+.day-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.day-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.1rem 1.2rem;
+}
+
+.day-heading {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 0.9rem;
+}
+
+.day-note {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.meal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.meal-row + .meal-row {
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--line);
+}
+
+.meal-row h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.filled-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+
+.filled-name button {
+  all: unset;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0.1rem 0.3rem;
+}
+
+.filled-name button:hover {
+  color: #b3413a;
+}
+
+.add-name-form {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.add-name-form input {
+  font-size: 0.85rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--ink);
+  width: 130px;
+}
+
+.add-name-form input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.add-name-form button {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--surface);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.add-name-form button:hover {
+  background: var(--accent);
+}

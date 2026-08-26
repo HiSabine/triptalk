@@ -2,6 +2,7 @@ import { unlockTrip } from './auth.js';
 import { supabase } from './supabaseClient.js';
 import { fetchForecast } from './weather.js';
 import { escapeHtml, formatDate, isSafeHttpUrl } from './utils.js';
+import { initMealSignups } from './meals.js';
 
 const params = new URLSearchParams(location.search);
 const slug = params.get('slug');
@@ -38,7 +39,7 @@ form.addEventListener('submit', async (event) => {
 async function loadTrip() {
   const { data, error } = await supabase
     .from('trips')
-    .select('name, address, house_url, lat, lng, start_date, end_date')
+    .select('id, name, address, house_url, lat, lng, start_date, end_date')
     .eq('slug', slug)
     .single();
 
@@ -64,9 +65,15 @@ async function loadTrip() {
 
     <p class="section-label">Weather</p>
     <div id="weather">Loading weather...</div>
+
+    <hr class="divider">
+
+    <p class="section-label">Meal Sign-Ups</p>
+    <div id="meals" class="day-cards">Loading sign-ups...</div>
   `;
 
   loadWeather(data);
+  initMealSignups(document.getElementById('meals'), data);
 }
 
 async function loadWeather(trip) {

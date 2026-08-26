@@ -82,11 +82,18 @@ create table meal_signups (
   trip_id uuid not null references trips(id) on delete cascade,
   day_date date not null,
   meal_type text not null check (meal_type in ('breakfast','lunch','dinner','dessert','snacks')),
-  dish text not null,
+  dish text,
   person_name text not null,
   created_at timestamptz not null default now()
 );
 alter table meal_signups enable row level security;
+
+-- One person per (day, meal) slot — breakfast/lunch/dinner are an
+-- exclusive claim, not a shared list. Enforced in the database (not
+-- just in the UI) so two people submitting at the same instant can't
+-- both "win" the same slot.
+create unique index meal_signups_day_meal_unique
+  on meal_signups (trip_id, day_date, meal_type);
 
 create policy "read if unlocked" on meal_signups
   for select using (
