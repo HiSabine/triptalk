@@ -1,7 +1,7 @@
 import { unlockTrip } from './auth.js';
 import { supabase } from './supabaseClient.js';
 import { fetchForecast } from './weather.js';
-import { escapeHtml } from './utils.js';
+import { escapeHtml, formatDate } from './utils.js';
 
 const params = new URLSearchParams(location.search);
 const slug = params.get('slug');
@@ -50,7 +50,7 @@ async function loadTrip() {
   content.innerHTML = `
     <h1>${escapeHtml(data.name)}</h1>
     <p>${escapeHtml(data.address)}</p>
-    <p>${escapeHtml(data.start_date)} – ${escapeHtml(data.end_date)}</p>
+    <p>${formatDate(data.start_date)} – ${formatDate(data.end_date)}</p>
     <div id="weather">Loading weather...</div>
   `;
 
@@ -76,7 +76,7 @@ async function loadWeather(trip) {
     .map(
       (day) => `
         <div class="weather-day">
-          <span class="weather-date">${escapeHtml(day.date)}</span>
+          <span class="weather-date">${formatDate(day.date)}</span>
           <span class="weather-icon">${day.icon}</span>
           <span class="weather-temps">${day.high}° / ${day.low}°</span>
         </div>
