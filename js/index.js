@@ -22,6 +22,7 @@ form.addEventListener('submit', async (event) => {
   const name = formData.get('name').trim();
   const address = formData.get('address').trim();
   const cityState = formData.get('cityState').trim();
+  const houseUrl = formData.get('houseUrl').trim();
   const suffix = Math.random().toString(36).slice(2, 6);
   const slug = `${slugify(name)}-${suffix}`;
 
@@ -35,6 +36,7 @@ form.addEventListener('submit', async (event) => {
       name,
       address,
       cityState,
+      houseUrl: houseUrl || null,
       lat: coords?.lat ?? null,
       lng: coords?.lng ?? null,
       startDate: formData.get('startDate'),

@@ -14,6 +14,7 @@ create table trips (
   name text not null,
   address text not null,
   city_state text,
+  house_url text,
   lat double precision,
   lng double precision,
   start_date date not null,
@@ -171,6 +172,7 @@ create or replace function create_trip(
   p_name text,
   p_address text,
   p_city_state text,
+  p_house_url text,
   p_lat double precision,
   p_lng double precision,
   p_start_date date,
@@ -185,8 +187,8 @@ as $$
 declare
   v_id uuid;
 begin
-  insert into trips (slug, name, address, city_state, lat, lng, start_date, end_date, password_hash)
-  values (p_slug, p_name, p_address, p_city_state, p_lat, p_lng, p_start_date, p_end_date, crypt(p_password, gen_salt('bf')))
+  insert into trips (slug, name, address, city_state, house_url, lat, lng, start_date, end_date, password_hash)
+  values (p_slug, p_name, p_address, p_city_state, p_house_url, p_lat, p_lng, p_start_date, p_end_date, crypt(p_password, gen_salt('bf')))
   returning id into v_id;
 
   insert into trip_access (trip_id, user_id) values (v_id, auth.uid());

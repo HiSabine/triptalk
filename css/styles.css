@@ -52,6 +52,19 @@ h1 {
   line-height: 1.7;
 }
 
+.house-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.house-link:hover {
+  text-decoration: underline;
+}
+
 .divider {
   border: none;
   border-top: 1px solid var(--line);

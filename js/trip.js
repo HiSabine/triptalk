@@ -1,7 +1,7 @@
 import { unlockTrip } from './auth.js';
 import { supabase } from './supabaseClient.js';
 import { fetchForecast } from './weather.js';
-import { escapeHtml, formatDate } from './utils.js';
+import { escapeHtml, formatDate, isSafeHttpUrl } from './utils.js';
 
 const params = new URLSearchParams(location.search);
 const slug = params.get('slug');
@@ -38,7 +38,7 @@ form.addEventListener('submit', async (event) => {
 async function loadTrip() {
   const { data, error } = await supabase
     .from('trips')
-    .select('name, address, lat, lng, start_date, end_date')
+    .select('name, address, house_url, lat, lng, start_date, end_date')
     .eq('slug', slug)
     .single();
 
@@ -47,6 +47,10 @@ async function loadTrip() {
     return;
   }
 
+  const houseLink = isSafeHttpUrl(data.house_url)
+    ? `<a class="house-link" href="${escapeHtml(data.house_url)}" target="_blank" rel="noopener noreferrer">House details ↗</a>`
+    : '';
+
   content.innerHTML = `
     <p class="kicker">TripTalk</p>
     <h1>${escapeHtml(data.name)}</h1>
@@ -54,6 +58,7 @@ async function loadTrip() {
       ${escapeHtml(data.address)}<br>
       ${formatDate(data.start_date)} – ${formatDate(data.end_date)}
     </p>
+    ${houseLink}
 
     <hr class="divider">
 
