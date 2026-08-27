@@ -252,9 +252,24 @@ button:disabled {
   color: #b3413a;
 }
 
+.who {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .add-name-form {
   display: flex;
   gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.add-name-form input[name="dish"] {
+  width: 150px;
+}
+
+.add-name-form input[name="personName"] {
+  width: 100px;
 }
 
 .add-name-form input {
@@ -265,7 +280,6 @@ button:disabled {
   font-family: inherit;
   background: var(--surface);
   color: var(--ink);
-  width: 130px;
 }
 
 .add-name-form input:focus {
@@ -286,5 +300,101 @@ button:disabled {
 }
 
 .add-name-form button:hover {
+  background: var(--accent);
+}
+
+.extras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 560px) {
+  .extras {
+    grid-template-columns: 1fr;
+  }
+}
+
+.extra-block {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+}
+
+.extra-block h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.signup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  font-size: 0.88rem;
+}
+
+.delete-signup {
+  all: unset;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.delete-signup:hover {
+  color: #b3413a;
+  background: #fbeceb;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin: 0.3rem 0;
+}
+
+.add-signup-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.add-signup-form input {
+  font-size: 0.88rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--ink);
+  flex: 1;
+  min-width: 100px;
+}
+
+.add-signup-form input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.add-signup-form button {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--surface);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.add-signup-form button:hover {
   background: var(--accent);
 }

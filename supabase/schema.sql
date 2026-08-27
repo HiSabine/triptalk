@@ -80,8 +80,11 @@ create policy "update if unlocked" on day_plan_sections
 create table meal_signups (
   id uuid primary key default gen_random_uuid(),
   trip_id uuid not null references trips(id) on delete cascade,
-  day_date date not null,
-  meal_type text not null check (meal_type in ('breakfast','lunch','dinner','dessert','snacks')),
+  -- Real date for breakfast/lunch/dinner sign-ups (tied to one day).
+  -- Null for snacks/desserts/drinks, which aren't day-specific — they're
+  -- a running "bring your favorite" list for the whole trip.
+  day_date date,
+  meal_type text not null check (meal_type in ('breakfast','lunch','dinner','dessert','snacks','drinks')),
   dish text,
   person_name text not null,
   created_at timestamptz not null default now()
@@ -91,7 +94,9 @@ alter table meal_signups enable row level security;
 -- One person per (day, meal) slot — breakfast/lunch/dinner are an
 -- exclusive claim, not a shared list. Enforced in the database (not
 -- just in the UI) so two people submitting at the same instant can't
--- both "win" the same slot.
+-- both "win" the same slot. Postgres treats NULL as distinct from every
+-- other NULL, so this doesn't restrict snacks/desserts/drinks rows
+-- (day_date null) — multiple of those are fine.
 create unique index meal_signups_day_meal_unique
   on meal_signups (trip_id, day_date, meal_type);
 
