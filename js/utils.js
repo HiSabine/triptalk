@@ -24,3 +24,19 @@ export function isSafeHttpUrl(url) {
     return false;
   }
 }
+
+// Wires up every ".password-field" on the page: a "Show"/"Hide" button
+// that toggles its sibling input between type="password" and "text".
+export function initPasswordToggles() {
+  document.querySelectorAll('.password-field').forEach((field) => {
+    const input = field.querySelector('input');
+    const button = field.querySelector('.toggle-password');
+    if (!input || !button) return;
+
+    button.addEventListener('click', () => {
+      const showing = input.type === 'text';
+      input.type = showing ? 'password' : 'text';
+      button.textContent = showing ? 'Show' : 'Hide';
+    });
+  });
+}

@@ -14,7 +14,10 @@
     <div id="gate">
       <h1>Enter the group password</h1>
       <form id="unlock-form">
-        <input type="password" name="password" placeholder="Group password" required>
+        <div class="password-field">
+          <input type="password" name="password" placeholder="Group password" required>
+          <button type="button" class="toggle-password">Show</button>
+        </div>
         <button type="submit">Unlock</button>
       </form>
       <p id="gate-status" class="status"></p>

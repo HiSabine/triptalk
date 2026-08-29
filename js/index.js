@@ -1,5 +1,8 @@
 import { createTrip } from './auth.js';
 import { geocodeAddress } from './weather.js';
+import { initPasswordToggles } from './utils.js';
+
+initPasswordToggles();
 
 function slugify(text) {
   return text

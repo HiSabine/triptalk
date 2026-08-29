@@ -1,8 +1,10 @@
 import { unlockTrip } from './auth.js';
 import { supabase } from './supabaseClient.js';
 import { fetchForecast } from './weather.js';
-import { escapeHtml, formatDate, isSafeHttpUrl } from './utils.js';
+import { escapeHtml, formatDate, isSafeHttpUrl, initPasswordToggles } from './utils.js';
 import { initMealSignups, initExtras } from './meals.js';
+
+initPasswordToggles();
 
 const params = new URLSearchParams(location.search);
 const slug = params.get('slug');
@@ -14,7 +16,7 @@ const form = document.getElementById('unlock-form');
 
 if (!slug) {
   gateStatus.textContent = 'No trip specified — check the link you were given.';
-  form.querySelector('button').disabled = true;
+  form.querySelector('button[type="submit"]').disabled = true;
 }
 
 form.addEventListener('submit', async (event) => {
